@@ -1,0 +1,9 @@
+Linux:
+    cmake ..
+    make
+    ./paint
+
+windows:
+    cmake -G "MinGW Makefiles" ..
+    mingw32-make
+    ./paint
