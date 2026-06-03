@@ -2,12 +2,11 @@
 
 ## 1. Tecnologias que Vamos Usar
 
-* **Linguagem C++11 (ou superior):** Escolha arquitetural para o aproveitamento de recursos modernos e da *Standard Template Library* (STL), como o uso de vetores dinâmicos (`std::vector`). Isso abstrai o gerenciamento manual complexo de memória (`malloc`/`realloc`) e previne vazamentos de memória comuns em implementações puramente em C.
-* **OpenGL Clássico (Modo Imediato):** Utilizado para a emissão de primitivas gráficas diretamente para o hardware de vídeo através dos blocos de comandos `glBegin()` e `glEnd()`.
+* **Linguagem C++11 (ou superior):** Escolha arquitetural para o aproveitamento de recursos modernos e da *Standard Template Library* (STL), como o uso de vetores dinâmicos (`std::vector`).
+* **OpenGL Clássico:** Utilizado para a emissão de primitivas gráficas diretamente para o hardware de vídeo através dos blocos de comandos `glBegin()` e `glEnd()`.
 * **OpenGL Utility Library (GLU):** Biblioteca auxiliar encarregada de abstrair projeções e gerenciar o mapeamento transparente entre o Sistema de Coordenadas do Mundo (ponto flutuante) e as Coordenadas da Tela/Dispositivo.
 * **FreeGLUT (Free OpenGL Utility Toolkit):** Evolução estável e de código aberto da GLUT original. Fornece o ecossistema multiplataforma para a criação de janelas gráficas, contexto de renderização e tratamento robusto de eventos de entrada guiados por funções *callback* (mouse e teclado).
 * **CMake (v3.10+):** Gerador de sistemas de construção (*build system template*) que atua de forma transparente na resolução de dependências multiplataforma, aplicando as diretivas e *flags* corretas de linkagem de acordo com o sistema operacional do desenvolvedor.
-* **Visual Studio Code (VS Code):** Editor de texto moderno adotado como ambiente de desenvolvimento integrado comum, integrado nativamente ao CMake para automação de builds e facilidade de depuração em equipe.
 
 ---
 
