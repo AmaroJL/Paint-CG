@@ -4,7 +4,11 @@ project(paint)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_executable(Paint main.cpp)
+add_executable(Paint 
+    main.cpp 
+    Botao.cpp 
+    Controlador.cpp
+)
 
 if (WIN32)
     message(STATUS "Configurando dependências para Windows (MinGW)...")
