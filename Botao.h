@@ -12,8 +12,11 @@ public:
     float x, y, largura, altura;
     std::string texto;
     Ferramenta* ferramenta;
+
+    bool ehBotaoAcao;
+    bool visivel;
     
-    Botao(float x, float y, float w, float h, std::string texto, Ferramenta* ferramenta);
+    Botao(float x, float y, float w, float h, std::string texto, Ferramenta* ferramenta, bool ehAcao = false);
     void desenhar();
     bool clicado(float mundoX, float mundoY);
     void realizar_acao();

@@ -1,27 +1,38 @@
 #include "Botao.h"
 
-Botao::Botao(float x, float y, float w, float h, std::string texto, Ferramenta* ferramenta) {
+Botao::Botao(float x, float y, float w, float h, std::string texto, Ferramenta* ferramenta, bool ehAcao) {
     this->x = x;
     this->y = y;
     this->largura = w;
     this->altura = h;
     this->texto = texto;
     this->ferramenta = ferramenta;
+    this->ehBotaoAcao = ehAcao;
+    this->visivel = true;
 }
 
 void Botao::realizar_acao() {
-    if (ferramentaAtiva == ferramenta) {
-        ferramentaAtiva = nullptr;
+    if (ehBotaoAcao) {
+        if (ferramentaAtiva != nullptr) {
+            ferramentaAtiva->finalizar_acao();
+        }
     } else {
-        ferramentaAtiva = ferramenta;
+        if (ferramentaAtiva == ferramenta) {
+            ferramentaAtiva = nullptr;
+        } else {
+            ferramentaAtiva = ferramenta;
+        }
     }
 }
 
 void Botao::desenhar() {
-    if (ferramentaAtiva == ferramenta && ferramenta != nullptr) {
+    if (!visivel) return;
+
+    if (ferramentaAtiva == ferramenta && ferramenta != nullptr && !ehBotaoAcao) {
         glColor3f(0.4f, 0.7f, 1.0f);
     } else {
-        glColor3f(0.2f, 0.5f, 0.8f);
+        if (ehBotaoAcao) glColor3f(0.8f, 0.2f, 0.2f);
+        else glColor3f(0.2f, 0.5f, 0.8f);
     }
     
     glBegin(GL_QUADS);
@@ -53,6 +64,8 @@ void Botao::desenhar() {
 }
 
 bool Botao::clicado(float mundoX, float mundoY) {
+    if (!visivel) return false;
+
     if (mundoX >= x && mundoX <= x + largura &&
         mundoY >= y && mundoY <= y + altura) {
         return true;

@@ -3,6 +3,8 @@
 #include <GL/glut.h>
 #include "Botao.h"
 #include "FerramentaPincel.h"
+#include "FerramentaLinha.h"        
+#include "FerramentaPoligono.h"
 #include "Controlador.h"
 
 Ferramenta* ferramentaAtiva = nullptr;
@@ -10,6 +12,8 @@ std::vector<Forma*> desenhosNaTela;
 std::vector<Botao> meusBotoes;
 
 FerramentaPincel ferramentaPincel;
+FerramentaLinha ferramentaLinha;   
+FerramentaPoligono ferramentaPoligono;
 bool desenhandoNaTela = false;
 
 Controlador controlador(meusBotoes, desenhosNaTela, ferramentaAtiva, desenhandoNaTela);
@@ -35,6 +39,9 @@ void display(void) {
     glClear(GL_COLOR_BUFFER_BIT);
     
     for (Botao& b : meusBotoes) {
+        if (b.texto == "Finalizar") {
+            b.visivel = (ferramentaAtiva == &ferramentaPoligono);
+        }
         b.desenhar();
     }
 
@@ -71,6 +78,10 @@ int main(int argc, char** argv) {
     init();
     
     meusBotoes.push_back(Botao(2, 136, 28, 12, "Pincel", &ferramentaPincel));
+    meusBotoes.push_back(Botao(32, 136, 28, 12, "Reta", &ferramentaLinha));
+    meusBotoes.push_back(Botao(62, 136, 40, 12, "Poligono", &ferramentaPoligono));
+
+    meusBotoes.push_back(Botao(104, 136, 35, 12, "Finalizar", nullptr, true));
   
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);

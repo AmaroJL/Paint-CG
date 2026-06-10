@@ -10,6 +10,7 @@ public:
     virtual bool ehContinua() { 
         return false; 
     }
+    virtual void finalizar_acao() {}
     
     virtual ~Ferramenta() {}
 };

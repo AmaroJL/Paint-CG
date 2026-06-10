@@ -23,7 +23,9 @@ void Controlador::processarDesenho(float mundoX, float mundoY) {
     if (ferramentaAtiva != nullptr) {
         desenhando = true;
         Forma* novaForma = ferramentaAtiva->usar_ferramenta(mundoX, mundoY);
-        desenhos.push_back(novaForma);
+        if (novaForma != nullptr) { 
+            desenhos.push_back(novaForma);
+        }
     } else {
         desenhando = false;
     }
