@@ -35,18 +35,31 @@ void reshape(int w, int h) {
     gluOrtho2D(0.0, 200.0, 0.0, 150.0);
 }
 
+void desenharTexto(float x, float y, void* fonte, std::string texto) {
+    glRasterPos2f(x, y);
+    for (char c : texto) {
+        glutBitmapCharacter(fonte, c);
+    }
+}
+
 void display(void) {
     glClear(GL_COLOR_BUFFER_BIT);
     
     for (Botao& b : meusBotoes) {
-        if (b.texto == "Finalizar") {
-            b.visivel = (ferramentaAtiva == &ferramentaPoligono);
-        }
         b.desenhar();
     }
 
     for (Forma* f : desenhosNaTela) {
         f->desenhar();
+    }
+
+    if (ferramentaAtiva == &ferramentaPoligono) {
+        glColor3f(0.4f, 0.4f, 0.4f); 
+        desenharTexto(2.0f, 3.0f, GLUT_BITMAP_HELVETICA_12, "Dica: Pressione ENTER, ESPACO ou ESC para fechar o poligono.");
+    } 
+    else if (ferramentaAtiva == &ferramentaLinha) {
+        glColor3f(0.4f, 0.4f, 0.4f);
+        desenharTexto(2.0f, 3.0f, GLUT_BITMAP_HELVETICA_12, "Dica: Pressione ESC para cancelar o desenho da reta.");
     }
 
     glFlush();
@@ -58,6 +71,16 @@ void mouse(int button, int state, int x, int y) {
     
     controlador.processarMouse(button, state, mundoX, mundoY);
     glutPostRedisplay();
+}
+
+void keyboard(unsigned char key, int x, int y) {
+    // 13 = Enter | 27 = Esc | 32 = Barra de Espaço
+    if (key == 13 || key == 27 || key == 32) { 
+        if (ferramentaAtiva != nullptr) {
+            ferramentaAtiva->finalizar_acao();
+            glutPostRedisplay(); // Força a tela a atualizar imediatamente
+        }
+    }
 }
 
 void motion(int x, int y) {
@@ -80,12 +103,11 @@ int main(int argc, char** argv) {
     meusBotoes.push_back(Botao(2, 136, 28, 12, "Pincel", &ferramentaPincel));
     meusBotoes.push_back(Botao(32, 136, 28, 12, "Reta", &ferramentaLinha));
     meusBotoes.push_back(Botao(62, 136, 40, 12, "Poligono", &ferramentaPoligono));
-
-    meusBotoes.push_back(Botao(104, 136, 35, 12, "Finalizar", nullptr, true));
   
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
     glutMouseFunc(mouse);
+    glutKeyboardFunc(keyboard);
     glutMotionFunc(motion);
     
     glutMainLoop();

@@ -1,38 +1,30 @@
 #include "Botao.h"
 
-Botao::Botao(float x, float y, float w, float h, std::string texto, Ferramenta* ferramenta, bool ehAcao) {
+Botao::Botao(float x, float y, float w, float h, std::string texto, Ferramenta* ferramenta) {
     this->x = x;
     this->y = y;
     this->largura = w;
     this->altura = h;
     this->texto = texto;
     this->ferramenta = ferramenta;
-    this->ehBotaoAcao = ehAcao;
     this->visivel = true;
 }
 
 void Botao::realizar_acao() {
-    if (ehBotaoAcao) {
-        if (ferramentaAtiva != nullptr) {
-            ferramentaAtiva->finalizar_acao();
-        }
+    if (ferramentaAtiva == ferramenta) {
+        ferramentaAtiva = nullptr;
     } else {
-        if (ferramentaAtiva == ferramenta) {
-            ferramentaAtiva = nullptr;
-        } else {
-            ferramentaAtiva = ferramenta;
-        }
+        ferramentaAtiva = ferramenta;
     }
 }
 
 void Botao::desenhar() {
     if (!visivel) return;
 
-    if (ferramentaAtiva == ferramenta && ferramenta != nullptr && !ehBotaoAcao) {
+    if (ferramentaAtiva == ferramenta && ferramenta != nullptr) {
         glColor3f(0.4f, 0.7f, 1.0f);
     } else {
-        if (ehBotaoAcao) glColor3f(0.8f, 0.2f, 0.2f);
-        else glColor3f(0.2f, 0.5f, 0.8f);
+        glColor3f(0.2f, 0.5f, 0.8f);
     }
     
     glBegin(GL_QUADS);
