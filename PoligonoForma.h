@@ -21,18 +21,27 @@ public:
     void desenhar() override {
         if (vertices.empty()) return;
         
-        // Desenha o interior do polígono (Verde)
-        glColor3f(0.2f, 0.8f, 0.2f); 
+        // Preenche o interior do poligno
+        glColor3f(0.2f, 0.8f, 0.2f);
         glBegin(GL_POLYGON);
         for (auto& v : vertices) {
             glVertex2f(v.x, v.y);
         }
         glEnd();
         
-        // Desenha o contorno do polígono (Preto) para melhor visualização
-        glColor3f(0.0f, 0.0f, 0.0f);
-        glLineWidth(2.0f);
+        // Linha de referência para usuário
+        glColor3f(0.2f, 0.8f, 0.2f);
+        glLineWidth(4.0f);
         glBegin(GL_LINE_LOOP);
+        for (auto& v : vertices) {
+            glVertex2f(v.x, v.y);
+        }
+        glEnd();
+
+        // Adiciona um ponto como referência para usuário
+        glPointSize(4.0f);
+        glColor3f(0.2f, 0.8f, 0.2f);
+        glBegin(GL_POINTS);
         for (auto& v : vertices) {
             glVertex2f(v.x, v.y);
         }
