@@ -19,6 +19,10 @@ public:
             return nullptr; 
         }
     }
+
+    void finalizar_acao() override {
+        linhaAtual = nullptr; // Reinicia a reta
+    }
 };
 
 #endif

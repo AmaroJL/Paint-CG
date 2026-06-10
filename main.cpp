@@ -59,7 +59,7 @@ void display(void) {
     } 
     else if (ferramentaAtiva == &ferramentaLinha) {
         glColor3f(0.4f, 0.4f, 0.4f);
-        desenharTexto(2.0f, 3.0f, GLUT_BITMAP_HELVETICA_12, "Dica: Pressione ESC para cancelar o desenho da reta.");
+        desenharTexto(2.0f, 3.0f, GLUT_BITMAP_HELVETICA_12, "Dica: Pressione ENTER, ESPACO ou ESC para reiniciar a reta.");
     }
 
     glFlush();
