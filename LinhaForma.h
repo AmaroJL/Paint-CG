@@ -17,11 +17,13 @@ public:
     
     void desenhar() override {
         glLineWidth(4.0f);
-        glColor3f(0.0f, 0.0f, 1.0f); // Azul
+        glColor3f(0.0f, 0.0f, 1.0f);
         glBegin(GL_LINES);
             glVertex2f(x1, y1);
             glVertex2f(x2, y2);
         glEnd();
+
+        glLineWidth(1.0f);
 
         glPointSize(4.0f);
         glColor3f(0.0f, 0.0f, 1.0f);

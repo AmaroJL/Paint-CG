@@ -38,6 +38,8 @@ public:
         }
         glEnd();
 
+        glLineWidth(1.0f);
+
         // Adiciona um ponto como referência para usuário
         glPointSize(4.0f);
         glColor3f(0.2f, 0.8f, 0.2f);
