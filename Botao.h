@@ -12,8 +12,6 @@ public:
     float x, y, largura, altura;
     std::string texto;
     Ferramenta* ferramenta;
-
-    bool visivel;
     
     Botao(float x, float y, float w, float h, std::string texto, Ferramenta* ferramenta);
     void desenhar();

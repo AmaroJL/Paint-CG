@@ -7,7 +7,6 @@ Botao::Botao(float x, float y, float w, float h, std::string texto, Ferramenta* 
     this->altura = h;
     this->texto = texto;
     this->ferramenta = ferramenta;
-    this->visivel = true;
 }
 
 void Botao::realizar_acao() {
@@ -19,8 +18,6 @@ void Botao::realizar_acao() {
 }
 
 void Botao::desenhar() {
-    if (!visivel) return;
-
     if (ferramentaAtiva == ferramenta && ferramenta != nullptr) {
         glColor3f(0.4f, 0.7f, 1.0f);
     } else {
@@ -56,8 +53,6 @@ void Botao::desenhar() {
 }
 
 bool Botao::clicado(float mundoX, float mundoY) {
-    if (!visivel) return false;
-
     if (mundoX >= x && mundoX <= x + largura &&
         mundoY >= y && mundoY <= y + altura) {
         return true;

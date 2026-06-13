@@ -26,7 +26,6 @@ public:
         glLineWidth(1.0f);
 
         glPointSize(4.0f);
-        glColor3f(0.0f, 0.0f, 1.0f);
         glBegin(GL_POINTS);
             glVertex2f(x1, y1); // Marca o local do 1º clique
             
@@ -34,6 +33,12 @@ public:
                 glVertex2f(x2, y2); 
             }
         glEnd();
+    }
+
+    bool clicado(float mx, float my, float tol) {
+        // LÓGICA DE SELEÇÃO DE RETA
+
+        return false;
     }
 };
 

@@ -49,6 +49,12 @@ public:
         }
         glEnd();
     }
+
+    bool clicado(float mx, float my, float tol) override {
+        // LÓGICA DE SELEÇÃO DE POLÍGONO
+        
+        return false; 
+    }
 };
 
 #endif
