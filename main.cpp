@@ -5,6 +5,7 @@
 #include "FerramentaPincel.h"
 #include "FerramentaLinha.h"        
 #include "FerramentaPoligono.h"
+#include "FerramentaSelecao.h"
 #include "Controlador.h"
 
 Ferramenta* ferramentaAtiva = nullptr;
@@ -14,6 +15,7 @@ std::vector<Botao> meusBotoes;
 FerramentaPincel ferramentaPincel;
 FerramentaLinha ferramentaLinha;   
 FerramentaPoligono ferramentaPoligono;
+FerramentaSelecao ferramentaSelecao;
 bool desenhandoNaTela = false;
 
 Controlador controlador(meusBotoes, desenhosNaTela, ferramentaAtiva, desenhandoNaTela);
@@ -55,7 +57,7 @@ void display(void) {
 
     if (ferramentaAtiva == &ferramentaPoligono) {
         glColor3f(0.4f, 0.4f, 0.4f); 
-        desenharTexto(2.0f, 3.0f, GLUT_BITMAP_HELVETICA_12, "Dica: Pressione ENTER, ESPACO ou ESC para fechar o poligono.");
+        desenharTexto(2.0f, 3.0f, GLUT_BITMAP_HELVETICA_12, "Dica: Pressione ESC para fechar o poligono.");
     } 
     else if (ferramentaAtiva == &ferramentaLinha) {
         glColor3f(0.4f, 0.4f, 0.4f);
@@ -103,7 +105,8 @@ int main(int argc, char** argv) {
     meusBotoes.push_back(Botao(2, 136, 28, 12, "Pincel", &ferramentaPincel));
     meusBotoes.push_back(Botao(32, 136, 28, 12, "Reta", &ferramentaLinha));
     meusBotoes.push_back(Botao(62, 136, 40, 12, "Poligono", &ferramentaPoligono));
-  
+    meusBotoes.push_back(Botao(104, 136, 35, 12, "Selecionar", &ferramentaSelecao));
+
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
     glutMouseFunc(mouse);
