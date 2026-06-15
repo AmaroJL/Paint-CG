@@ -12,11 +12,8 @@ public:
     void desenhar() override {
         glPointSize(10.0f);
 
-        if(selecionada) {
-            glColor3f(1.0f, 0.5f, 0.0f);
-        } else {
-            glColor3f(1.0f, 0.0f, 0.0f);
-        }
+        if (selecionada) glColor3f(1.0f, 0.5f, 0.0f);
+        else glColor3f(1.0f, 0.0f, 0.0f);
         
         glBegin(GL_POINTS);
             glVertex2f(x, y);
