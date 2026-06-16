@@ -11,6 +11,9 @@ public:
         return false; 
     }
     virtual void finalizar_acao() {}
+
+    virtual void arrastar(float mx, float my) {}
+    virtual void soltar() {}
     
     virtual ~Ferramenta() {}
 };

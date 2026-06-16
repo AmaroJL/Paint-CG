@@ -40,14 +40,23 @@ void Controlador::processarMouse(int button, int state, float mundoX, float mund
     } 
     else if (state == GLUT_UP) {
         desenhando = false;
+        if (ferramentaAtiva != nullptr) {
+            ferramentaAtiva->soltar();
+        }
     }
 }
 
 void Controlador::processarMotion(float mundoX, float mundoY) {
     if (mundoY > 130.0f) return;
-    
-    if (desenhando && ferramentaAtiva != nullptr && ferramentaAtiva->ehContinua()) {
-        Forma* novaForma = ferramentaAtiva->usar_ferramenta(mundoX, mundoY);
-        desenhos.push_back(novaForma);
+
+    if (ferramentaAtiva != nullptr) {
+        ferramentaAtiva->arrastar(mundoX, mundoY); // Repassa o movimeto do mouse para a ferramenta arrastar
+
+        if (desenhando && ferramentaAtiva->ehContinua()) {
+                Forma* novaForma = ferramentaAtiva->usar_ferramenta(mundoX, mundoY);
+                desenhos.push_back(novaForma);
+            }
     }
+    
+    
 }

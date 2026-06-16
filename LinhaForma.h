@@ -34,6 +34,9 @@ public:
     }
     
     void desenhar() override {
+        glPushMatrix(); // Salva a matriz do universo atual
+        glTranslatef(novox, novoy, 0.0f); // Move o universo, o fundo
+
         glLineWidth(4.0f);
 
         if (selecionada) glColor3f(1.0f, 0.5f, 0.0f);
@@ -55,14 +58,19 @@ public:
                 glVertex2f(x2, y2); 
             }
         glEnd();
+
+        glPopMatrix(); // Restaura o universo
     }
 
     bool clicado(float mx, float my, float tol) override {
+        float mx_local = mx - novox;
+        float my_local = my - novoy;
+
         // Vértices do retângulo de tolerância
-        float xmin = mx - tol;
-        float xmax = mx + tol;
-        float ymin = my - tol;
-        float ymax = my + tol;
+        float xmin = mx_local - tol;
+        float xmax = mx_local + tol;
+        float ymin = my_local - tol;
+        float ymax = my_local + tol;
 
         // Recebem as posições dos pontos da reta (inicial e final) em relação ao retângulo de tolerância
         int cod1 = calcularCodigoDeRegiao(x1, y1, xmin, xmax, ymin, ymax);
