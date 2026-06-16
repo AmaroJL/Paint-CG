@@ -2,10 +2,10 @@
 #include <vector>
 #include <GL/glut.h>
 #include "Botao.h"
-#include "FerramentaPincel.h"
-#include "FerramentaLinha.h"        
-#include "FerramentaPoligono.h"
-#include "FerramentaSelecao.h"
+#include "ferramentas/FerramentaPincel.h"
+#include "ferramentas/FerramentaLinha.h"        
+#include "ferramentas/FerramentaPoligono.h"
+#include "ferramentas/FerramentaSelecao.h"
 #include "Controlador.h"
 
 Ferramenta* ferramentaAtiva = nullptr;

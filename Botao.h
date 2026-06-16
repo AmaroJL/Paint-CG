@@ -3,7 +3,7 @@
 
 #include <GL/glut.h>
 #include <string>
-#include "Ferramenta.h"
+#include "ferramentas/Ferramenta.h"
 
 extern Ferramenta* ferramentaAtiva;
 

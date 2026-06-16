@@ -2,7 +2,7 @@
 #define FERRAMENTAPINCEL_H
 
 #include "Ferramenta.h"
-#include "PontoForma.h"
+#include "../formas/PontoForma.h"
 
 class FerramentaPincel : public Ferramenta {
 public:

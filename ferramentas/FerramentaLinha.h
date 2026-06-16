@@ -2,7 +2,7 @@
 #define FERRAMENTALINHA_H
 
 #include "Ferramenta.h"
-#include "LinhaForma.h"
+#include "../formas/LinhaForma.h"
 
 class FerramentaLinha : public Ferramenta {
 private:

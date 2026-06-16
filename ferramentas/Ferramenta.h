@@ -1,7 +1,7 @@
 #ifndef FERRAMENTA_H
 #define FERRAMENTA_H
 
-#include "Forma.h"
+#include "../formas/Forma.h"
 
 class Ferramenta {
 public:

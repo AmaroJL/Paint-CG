@@ -2,7 +2,7 @@
 #define FERRAMENTAPOLIGONO_H
 
 #include "Ferramenta.h"
-#include "PoligonoForma.h"
+#include "../formas/PoligonoForma.h"
 
 class FerramentaPoligono : public Ferramenta {
 private:

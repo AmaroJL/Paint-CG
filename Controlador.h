@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "Botao.h"
-#include "Forma.h"
+#include "formas/Forma.h"
 
 class Controlador {
 private:
