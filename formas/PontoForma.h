@@ -10,6 +10,9 @@ private:
 public:
     PontoForma(float x, float y) : x(x), y(y) {}
     void desenhar() override {
+        glPushMatrix();
+        glTranslatef(novox, novoy, 0.0f);
+
         glPointSize(10.0f);
 
         if (selecionada) glColor3f(1.0f, 0.5f, 0.0f);
@@ -18,6 +21,8 @@ public:
         glBegin(GL_POINTS);
             glVertex2f(x, y);
         glEnd();
+
+        glPopMatrix();
     }
 
     bool clicado(float mx, float my, float tol) override {
