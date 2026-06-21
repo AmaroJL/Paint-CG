@@ -21,7 +21,7 @@ public:
     }
 
     bool clicado(float mx, float my, float tol) override {
-        if (x >= (mx - tol) && x <= (mx + tol) && y >= (my - tol) && y <= (mx + y)) {
+        if (x >= (mx - tol) && x <= (mx + tol) && y >= (my - tol) && y <= (my + tol)) {
             return true;
         } 
         return false;
