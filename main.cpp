@@ -178,6 +178,22 @@ void keyboard(unsigned char key, int x, int y) {
             };
             transformarComPontoFixo(selecionada, mCisalhamentoV);
             glutPostRedisplay();
+        } 
+        else if (key == 127) {
+            // exclusao de objeto selecionado
+            for (auto it = desenhosNaTela.begin(); it != desenhosNaTela.end(); ) {
+                if ((*it)->selecionada) {
+                    // limpa ponteiro do polígono
+                    ferramentaPoligono.finalizar_acao();
+                    // limpa ponteiro da seleção
+                    ferramentaSelecao.soltar();
+                    delete *it;
+                    it = desenhosNaTela.erase(it);
+                } else {
+                    ++it;
+                }
+            }
+            glutPostRedisplay();
         }
     }
 }
