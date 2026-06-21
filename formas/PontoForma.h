@@ -26,7 +26,9 @@ public:
     }
 
     bool clicado(float mx, float my, float tol) override {
-        // Seleção desativada para a ferramenta Pincel a pedido do usuário
+        if (x >= (mx - tol) && x <= (mx + tol) && y >= (my - tol) && y <= (mx + y)) {
+            return true;
+        } 
         return false;
     }
 };

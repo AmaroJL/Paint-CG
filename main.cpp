@@ -2,7 +2,7 @@
 #include <vector>
 #include <GL/glut.h>
 #include "Botao.h"
-#include "ferramentas/FerramentaPincel.h"
+#include "ferramentas/FerramentaPonto.h"
 #include "ferramentas/FerramentaLinha.h"        
 #include "ferramentas/FerramentaPoligono.h"
 #include "ferramentas/FerramentaSelecao.h"
@@ -13,7 +13,7 @@ std::vector<Forma*> desenhosNaTela;
 std::vector<Botao> meusBotoes;
 
 FerramentaPincel ferramentaPincel;
-FerramentaLinha ferramentaLinha;
+FerramentaLinha ferramentaLinha;   
 FerramentaPoligono ferramentaPoligono;
 FerramentaSelecao ferramentaSelecao;
 bool desenhandoNaTela = false;
@@ -102,7 +102,7 @@ int main(int argc, char** argv) {
     
     init();
     
-    meusBotoes.push_back(Botao(2, 136, 28, 12, "Pincel", &ferramentaPincel));
+    meusBotoes.push_back(Botao(2, 136, 28, 12, "Ponto", &ferramentaPonto));
     meusBotoes.push_back(Botao(32, 136, 28, 12, "Reta", &ferramentaLinha));
     meusBotoes.push_back(Botao(62, 136, 40, 12, "Poligono", &ferramentaPoligono));
     meusBotoes.push_back(Botao(104, 136, 35, 12, "Selecionar", &ferramentaSelecao));
