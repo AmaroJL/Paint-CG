@@ -63,6 +63,10 @@ void display(void) {
         glColor3f(0.4f, 0.4f, 0.4f);
         desenharTexto(2.0f, 3.0f, GLUT_BITMAP_HELVETICA_12, "Dica: Pressione ENTER, ESPACO ou ESC para reiniciar a reta.");
     }
+    else if (ferramentaAtiva == &ferramentaSelecao) {
+        glColor3f(0.4f, 0.4f, 0.4f);
+        desenharTexto(2.0f, 3.0f, GLUT_BITMAP_HELVETICA_12, "Dica: Pressione X e Y para reflexão ou H e V para cisalhamento");
+    }
 
     glFlush();
 }
