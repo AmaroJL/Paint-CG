@@ -3,12 +3,14 @@
 
 #include "Forma.h"
 #include <GL/glut.h>
+#include <sstream>
 
 class PontoForma : public Forma {
 private:
     float x, y;
 public:
     PontoForma(float x, float y) : x(x), y(y) {}
+    
     void desenhar() override {
         glPushMatrix();
         glTranslatef(novox, novoy, 0.0f);
@@ -27,6 +29,12 @@ public:
 
     bool clicado(float mx, float my, float tol) override {
         return false;
+    }
+
+    std::string exportar() override {
+        std::stringstream ss;
+        ss << "PONTO " << x << " " << y << " " << novox << " " << novoy;
+        return ss.str();
     }
 };
 

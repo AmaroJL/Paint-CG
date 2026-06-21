@@ -4,16 +4,16 @@
 #include "Forma.h"
 #include <GL/glut.h>
 #include <cmath>
+#include <sstream>
 
 class LinhaForma : public Forma {
 private:
-    static const int DENTRO = 0;   // 0000
-    static const int ESQUERDA = 1; // 0001
-    static const int DIREITA = 2;  // 0010
-    static const int BAIXO = 4;    // 0100
-    static const int CIMA = 8;     // 1000
+    static const int DENTRO = 0;   
+    static const int ESQUERDA = 1; 
+    static const int DIREITA = 2;  
+    static const int BAIXO = 4;    
+    static const int CIMA = 8;     
 
-    // Verifica onde um ponto está em relação ao retângulo de tolerância
     int calcularCodigoDeRegiao(float px, float py, float xmin, float xmax, float ymin, float ymax) {
         int codigo = DENTRO;
         if (px < xmin)      codigo |= ESQUERDA;
@@ -34,14 +34,13 @@ public:
     }
     
     void desenhar() override {
-        glPushMatrix(); // Salva a matriz do universo atual
-        glTranslatef(novox, novoy, 0.0f); // Move o universo, o fundo
+        glPushMatrix(); 
+        glTranslatef(novox, novoy, 0.0f); 
 
         glLineWidth(4.0f);
 
         if (selecionada) glColor3f(1.0f, 0.5f, 0.0f);
         else glColor3f(0.0f, 0.0f, 1.0f);
-
         
         glBegin(GL_LINES);
             glVertex2f(x1, y1);
@@ -52,19 +51,23 @@ public:
 
         glPointSize(4.0f);
         glBegin(GL_POINTS);
-            glVertex2f(x1, y1); // Marca o local do 1º clique
-            
+            glVertex2f(x1, y1); 
             if (x1 != x2 || y1 != y2) {
                 glVertex2f(x2, y2); 
             }
         glEnd();
 
-        glPopMatrix(); // Restaura o universo
+        glPopMatrix(); 
     }
 
     bool clicado(float mx, float my, float tol) override {
-        // Seleção desativada para a ferramenta Reta a pedido do usuário
         return false;
+    }
+
+    std::string exportar() override {
+        std::stringstream ss;
+        ss << "LINHA " << x1 << " " << y1 << " " << x2 << " " << y2 << " " << novox << " " << novoy;
+        return ss.str();
     }
 };
 

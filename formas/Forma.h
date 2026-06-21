@@ -1,6 +1,8 @@
 #ifndef FORMA_H
 #define FORMA_H
 
+#include <string>
+
 class Forma {
 public:
     virtual void desenhar() = 0;
@@ -11,6 +13,8 @@ public:
     float novoy = 0.0f;
 
     virtual bool clicado(float mx, float my, float tolerancia) = 0; 
+    
+    virtual std::string exportar() = 0;
 
     virtual ~Forma() {} 
 };

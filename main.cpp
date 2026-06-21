@@ -107,6 +107,9 @@ int main(int argc, char** argv) {
     meusBotoes.push_back(Botao(62, 136, 40, 12, "Poligono", &ferramentaPoligono));
     meusBotoes.push_back(Botao(104, 136, 35, 12, "Selecionar", &ferramentaSelecao));
 
+    meusBotoes.push_back(Botao(141, 136, 30, 12, "Salvar", nullptr));
+    meusBotoes.push_back(Botao(173, 136, 35, 12, "Carregar", nullptr));
+
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);
     glutMouseFunc(mouse);

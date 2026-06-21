@@ -1,5 +1,6 @@
 #include "Controlador.h"
 #include <GL/glut.h>
+#include "Persistencia.h"
 
 Controlador::Controlador(std::vector<Botao>& b, std::vector<Forma*>& d, Ferramenta*& f, bool& des) 
     : botoes(b), desenhos(d), ferramentaAtiva(f), desenhando(des) {}
@@ -7,6 +8,20 @@ Controlador::Controlador(std::vector<Botao>& b, std::vector<Forma*>& d, Ferramen
 bool Controlador::processarCliqueBotao(float mundoX, float mundoY) {
     for (Botao& b : botoes) {
         if (b.clicado(mundoX, mundoY)) {
+            
+            if (b.texto == "Salvar") {
+                Persistencia::salvar(desenhos, "desenho.txt");
+                return true;
+            } 
+            else if (b.texto == "Carregar") {
+                if (ferramentaAtiva != nullptr) {
+                    ferramentaAtiva->finalizar_acao();
+                    ferramentaAtiva = nullptr;
+                }
+                Persistencia::carregar(desenhos, "desenho.txt");
+                return true;
+            }
+
             b.realizar_acao();
             return true;
         }

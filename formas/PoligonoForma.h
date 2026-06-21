@@ -4,6 +4,7 @@
 #include "Forma.h"
 #include <GL/glut.h>
 #include <vector>
+#include <sstream>
 
 class PoligonoForma : public Forma {
 public:
@@ -24,21 +25,15 @@ public:
         glPushMatrix();
         glTranslatef(novox, novoy, 0.0f);
         
-        // Se estiver selecionado, usa cor laranja, senão usa verde
-        if (selecionada) {
-            glColor3f(1.0f, 0.5f, 0.0f); // Laranja para seleção
-        } else {
-            glColor3f(0.2f, 0.8f, 0.2f); // Verde (cor padrão)
-        }
+        if (selecionada) glColor3f(1.0f, 0.5f, 0.0f); 
+        else glColor3f(0.2f, 0.8f, 0.2f); 
         
-        // Preenche o interior do polígono
         glBegin(GL_POLYGON);
         for (auto& v : vertices) {
             glVertex2f(v.x, v.y);
         }
         glEnd();
         
-        // Linha de referência para usuário
         glLineWidth(4.0f);
         glBegin(GL_LINE_LOOP);
         for (auto& v : vertices) {
@@ -48,7 +43,6 @@ public:
 
         glLineWidth(1.0f);
 
-        // Adiciona um ponto como referência para usuário
         glPointSize(4.0f);
         glBegin(GL_POINTS);
         for (auto& v : vertices) {
@@ -72,37 +66,33 @@ public:
             Vertice p1 = vertices[i];
             Vertice p2 = vertices[(i + 1) % n];
             
-            // Ignorar arestas horizontais
-            if (p1.y == p2.y && p1.y == my_local) {
-                continue;
-            }
+            if (p1.y == p2.y && p1.y == my_local) continue;
             
             bool cruzou = false;
             
-            // Intersecção exata sobre vértices: conta apenas se o outro vértice estiver acima
             if (p1.y == my_local) {
-                if (p2.y > my_local && p1.x > mx_local) {
-                    cruzou = true;
-                }
+                if (p2.y > my_local && p1.x > mx_local) cruzou = true;
             } else if (p2.y == my_local) {
-                if (p1.y > my_local && p2.x > mx_local) {
-                    cruzou = true;
-                }
+                if (p1.y > my_local && p2.x > mx_local) cruzou = true;
             } else if ((p1.y < my_local && p2.y > my_local) || (p1.y > my_local && p2.y < my_local)) {
-                // Caso não trivial: calcula a abscissa (x) da interseção
                 float xi = p1.x + (my_local - p1.y) * (p2.x - p1.x) / (p2.y - p1.y);
-                if (xi > mx_local) {
-                    cruzou = true;
-                }
+                if (xi > mx_local) cruzou = true;
             }
             
-            if (cruzou) {
-                intersecoes++;
-            }
+            if (cruzou) intersecoes++;
         }
         
         selecionada = (intersecoes % 2 != 0);
         return selecionada;
+    }
+
+    std::string exportar() override {
+        std::stringstream ss;
+        ss << "POLIGONO " << novox << " " << novoy << " " << vertices.size();
+        for (auto& v : vertices) {
+            ss << " " << v.x << " " << v.y;
+        }
+        return ss.str();
     }
 };
 
