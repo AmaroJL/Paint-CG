@@ -12,8 +12,8 @@ Ferramenta* ferramentaAtiva = nullptr;
 std::vector<Forma*> desenhosNaTela;
 std::vector<Botao> meusBotoes;
 
-FerramentaPincel ferramentaPincel;
-FerramentaLinha ferramentaLinha;   
+FerramentaPonto ferramentaPonto;
+FerramentaLinha ferramentaLinha;
 FerramentaPoligono ferramentaPoligono;
 FerramentaSelecao ferramentaSelecao;
 bool desenhandoNaTela = false;
