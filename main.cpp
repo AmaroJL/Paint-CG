@@ -13,7 +13,7 @@ std::vector<Forma*> desenhosNaTela;
 std::vector<Botao> meusBotoes;
 
 FerramentaPincel ferramentaPincel;
-FerramentaLinha ferramentaLinha;   
+FerramentaLinha ferramentaLinha;
 FerramentaPoligono ferramentaPoligono;
 FerramentaSelecao ferramentaSelecao;
 bool desenhandoNaTela = false;
