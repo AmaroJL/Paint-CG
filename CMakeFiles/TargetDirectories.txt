@@ -1,3 +1,0 @@
-/home/andre/minhas-paradas/programacao/pastas-projetos/Paint-CG/CMakeFiles/Paint.dir
-/home/andre/minhas-paradas/programacao/pastas-projetos/Paint-CG/CMakeFiles/edit_cache.dir
-/home/andre/minhas-paradas/programacao/pastas-projetos/Paint-CG/CMakeFiles/rebuild_cache.dir

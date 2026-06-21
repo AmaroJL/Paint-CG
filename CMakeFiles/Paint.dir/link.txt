@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/Paint.dir/main.cpp.o CMakeFiles/Paint.dir/Botao.cpp.o CMakeFiles/Paint.dir/Controlador.cpp.o -o Paint  -lGL -lglut -lGLU 
