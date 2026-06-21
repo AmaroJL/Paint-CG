@@ -26,7 +26,22 @@ public:
     }
 
     bool clicado(float mx, float my, float tol) override {
+        if (x >= (mx - tol) && x <= (mx + tol) && y >= (my - tol) && y <= (mx + y)) {
+            return true;
+        } 
         return false;
+    }
+
+    void aplicarTransformacao(float m[3][3]) override {
+        float nx = m[0][0] * x + m[0][1] * y + m[0][2] * 1.0f;
+        float ny = m[1][0] * x + m[1][1] * y + m[1][2] * 1.0f;
+        x = nx;
+        y = ny;
+    }
+
+    void obterCentro(float &cx, float &cy) override {
+        cx = x;
+        cy = y;
     }
 };
 

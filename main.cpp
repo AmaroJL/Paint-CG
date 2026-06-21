@@ -75,12 +75,105 @@ void mouse(int button, int state, int x, int y) {
     glutPostRedisplay();
 }
 
+void multiplicarMatrizes(float m1[3][3], float m2[3][3], float res[3][3]) {
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            res[i][j] = 0.0f;
+            for (int k = 0; k < 3; k++) {
+                res[i][j] += m1[i][k] * m2[k][j];
+            }
+        }
+    }
+}
+
+void transformarComPontoFixo(Forma* f, float matrizBase[3][3]) {
+    float cx, cy;
+    f->obterCentro(cx, cy);
+
+    // matriz de translação - leva o centroide para a origem 
+    float tIda[3][3] = {
+        {1.0f, 0.0f, -cx},
+        {0.0f, 1.0f, -cy},
+        {0.0f, 0.0f, 1.0f}
+    };
+
+    // matriz de translação - coloca o centróide a posiçao original 
+    float tVolta[3][3] = {
+        {1.0f, 0.0f, cx},
+        {0.0f, 1.0f, cy},
+        {0.0f, 0.0f, 1.0f}
+    };
+
+    float temp[3][3];
+    float matrizComposta[3][3];
+
+    // concatenação depois da multiplicacao 
+    multiplicarMatrizes(matrizBase, tIda, temp);
+    multiplicarMatrizes(tVolta, temp, matrizComposta);
+
+    f->aplicarTransformacao(matrizComposta);
+}
+
 void keyboard(unsigned char key, int x, int y) {
     // 13 = Enter | 27 = Esc | 32 = Barra de Espaço
     if (key == 13 || key == 27 || key == 32) { 
         if (ferramentaAtiva != nullptr) {
             ferramentaAtiva->finalizar_acao();
-            glutPostRedisplay(); // Força a tela a atualizar imediatamente
+            glutPostRedisplay(); 
+        }
+    }
+
+    // pega o desenho selecionado
+    Forma* selecionada = nullptr;
+    for (Forma* f : desenhosNaTela) {
+        if (f->selecionada) {
+            selecionada = f;
+            break;
+        }
+    }
+
+    if (selecionada != nullptr) {
+        if (key == 'x' || key == 'X') {
+            // reflexao baseado no eixo x fixo (ref vertical - eixo y que muda)
+            float mReflexaoX[3][3] = {
+                {1.0f,  0.0f, 0.0f},
+                {0.0f, -1.0f, 0.0f},
+                {0.0f,  0.0f, 1.0f}
+            };
+            transformarComPontoFixo(selecionada, mReflexaoX);
+            glutPostRedisplay();
+        }
+        else if (key == 'y' || key == 'Y') {
+            // reflexao baseado no eixo y fixo (ref vertical - eixo x que muda)
+            float mReflexaoY[3][3] = {
+                {-1.0f, 0.0f, 0.0f},
+                {0.0f,  1.0f, 0.0f},
+                {0.0f,  0.0f, 1.0f}
+            };
+            transformarComPontoFixo(selecionada, mReflexaoY);
+            glutPostRedisplay();
+        }
+        else if (key == 'h' || key == 'H') {
+            // cisalhamento horizontal (distorce no eixo x)
+            float shx = 0.2f; 
+            float mCisalhamentoH[3][3] = {
+                {1.0f,  shx,  0.0f},
+                {0.0f, 1.0f,  0.0f},
+                {0.0f, 0.0f,  1.0f}
+            };
+            transformarComPontoFixo(selecionada, mCisalhamentoH);
+            glutPostRedisplay();
+        }
+        else if (key == 'v' || key == 'V') {
+            // cisalhamento vertical (distorce no eixo y)
+            float shy = 0.2f; 
+            float mCisalhamentoV[3][3] = {
+                {1.0f, 0.0f,  0.0f},
+                {shy,  1.0f,  0.0f},
+                {0.0f, 0.0f,  1.0f}
+            };
+            transformarComPontoFixo(selecionada, mCisalhamentoV);
+            glutPostRedisplay();
         }
     }
 }

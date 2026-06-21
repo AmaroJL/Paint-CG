@@ -13,6 +13,9 @@ public:
     virtual bool clicado(float mx, float my, float tolerancia) = 0; 
 
     virtual ~Forma() {} 
+
+    virtual void aplicarTransformacao(float m[3][3]) = 0;
+    virtual void obterCentro(float &cx, float &cy) = 0;
 };
 
 #endif

@@ -104,6 +104,26 @@ public:
         selecionada = (intersecoes % 2 != 0);
         return selecionada;
     }
+
+    void aplicarTransformacao(float m[3][3]) override {
+        for (auto& v : vertices) {
+            float nx = m[0][0] * v.x + m[0][1] * v.y + m[0][2] * 1.0f;
+            float ny = m[1][0] * v.x + m[1][1] * v.y + m[1][2] * 1.0f;
+            v.x = nx;
+            v.y = ny;
+        }
+    }
+
+    void obterCentro(float &cx, float &cy) override {
+        if (vertices.empty()) { cx = 0; cy = 0; return; }
+        cx = 0; cy = 0;
+        for (auto& v : vertices) {
+            cx += v.x;
+            cy += v.y;
+        }
+        cx /= vertices.size();
+        cy /= vertices.size();
+    }
 };
 
 #endif
