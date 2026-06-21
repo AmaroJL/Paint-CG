@@ -5,8 +5,3 @@ out/
 
 *.exe
 *.out
-
-/CMakeCache.txt
-cmake_install.cmake
-/Makefile
-/Paint
