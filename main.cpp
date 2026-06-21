@@ -2,11 +2,17 @@
 #include <vector>
 #include <GL/glut.h>
 #include "Botao.h"
+#include "formas/PontoForma.h"
 #include "ferramentas/FerramentaPonto.h"
 #include "ferramentas/FerramentaLinha.h"        
 #include "ferramentas/FerramentaPoligono.h"
 #include "ferramentas/FerramentaSelecao.h"
 #include "Controlador.h"
+
+#include <cmath>
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
 
 Ferramenta* ferramentaAtiva = nullptr;
 std::vector<Forma*> desenhosNaTela;
@@ -65,7 +71,10 @@ void display(void) {
     }
     else if (ferramentaAtiva == &ferramentaSelecao) {
         glColor3f(0.4f, 0.4f, 0.4f);
-        desenharTexto(2.0f, 3.0f, GLUT_BITMAP_HELVETICA_12, "Dica: Pressione X e Y para reflexão ou H e V para cisalhamento");
+        desenharTexto(2.0f, 7.0f, GLUT_BITMAP_HELVETICA_12, "Dica: DEL (Excluir) | r/R (Rotacionar) | +/- (Escala)");
+        
+        // Linha de baixo (Y = 3.0)
+        desenharTexto(2.0f, 3.0f, GLUT_BITMAP_HELVETICA_12, "Transformacoes: X/Y (Reflexao) | H/V (Cisalhamento)");
     }
 
     glFlush();
@@ -177,6 +186,75 @@ void keyboard(unsigned char key, int x, int y) {
                 {0.0f, 0.0f,  1.0f}
             };
             transformarComPontoFixo(selecionada, mCisalhamentoV);
+            glutPostRedisplay();
+        } 
+        else if (key == 'r') {
+            // rotacao: gira 10 graus no sentido anti-horário
+            float angulo = 10.0f * (M_PI / 180.0f);
+            float mRotacao[3][3] = {
+                {static_cast<float>(cos(angulo)), static_cast<float>(-sin(angulo)), 0.0f},
+                {static_cast<float>(sin(angulo)), static_cast<float>(cos(angulo)),  0.0f},
+                {0.0f,                            0.0f,                             1.0f}
+            };
+            if (dynamic_cast<PontoForma*>(selecionada) != nullptr) {
+                selecionada->aplicarTransformacao(mRotacao); 
+            } else {
+                transformarComPontoFixo(selecionada, mRotacao); 
+            }
+            glutPostRedisplay();
+        }
+        else if (key == 'R') {
+            // rotacao: gira 10 graus no sentido horário
+            float angulo = -10.0f * (M_PI / 180.0f); 
+            float mRotacao[3][3] = {
+                {static_cast<float>(cos(angulo)), static_cast<float>(-sin(angulo)), 0.0f},
+                {static_cast<float>(sin(angulo)), static_cast<float>(cos(angulo)),  0.0f},
+                {0.0f,                            0.0f,                             1.0f}
+            };
+            if (dynamic_cast<PontoForma*>(selecionada) != nullptr) {
+                selecionada->aplicarTransformacao(mRotacao); // rotacao do ponto na origem (0,0)
+            } else {
+                transformarComPontoFixo(selecionada, mRotacao); // rotacao normal
+            }
+            glutPostRedisplay();
+        }
+        else if (key == '+' || key == '=') {
+            // escala: diminui o tamanho em 10%
+            float mEscala[3][3] = {
+                {1.1f, 0.0f, 0.0f},
+                {0.0f, 1.1f, 0.0f},
+                {0.0f, 0.0f, 1.0f}
+            };
+
+            if (dynamic_cast<PontoForma*>(selecionada) == nullptr) {
+                transformarComPontoFixo(selecionada, mEscala);
+                glutPostRedisplay();
+            }
+        }
+        else if (key == '-' || key == '_') {
+            // escala: diminui o tamanho em 10%
+            float mEscala[3][3] = {
+                {0.9f, 0.0f, 0.0f},
+                {0.0f, 0.9f, 0.0f},
+                {0.0f, 0.0f, 1.0f}
+            };
+            if (dynamic_cast<PontoForma*>(selecionada) == nullptr) {
+                transformarComPontoFixo(selecionada, mEscala);
+                glutPostRedisplay();
+            }
+        }
+        else if (key == 127) {
+            // exclusao de objeto selecionado
+            for (auto it = desenhosNaTela.begin(); it != desenhosNaTela.end(); ) {
+                if ((*it)->selecionada) {
+                    ferramentaPoligono.finalizar_acao();
+                    ferramentaSelecao.soltar();
+                    delete *it;
+                    it = desenhosNaTela.erase(it);
+                } else {
+                    ++it;
+                }
+            }
             glutPostRedisplay();
         }
     }

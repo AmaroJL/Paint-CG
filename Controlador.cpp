@@ -7,6 +7,14 @@ Controlador::Controlador(std::vector<Botao>& b, std::vector<Forma*>& d, Ferramen
 bool Controlador::processarCliqueBotao(float mundoX, float mundoY) {
     for (Botao& b : botoes) {
         if (b.clicado(mundoX, mundoY)) {
+            if (ferramentaAtiva != nullptr) {
+                ferramentaAtiva->finalizar_acao();
+            }
+
+            for (Forma* f : desenhos) {
+                f->selecionada = false;
+            }
+
             b.realizar_acao();
             return true;
         }
