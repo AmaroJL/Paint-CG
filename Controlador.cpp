@@ -11,6 +11,10 @@ bool Controlador::processarCliqueBotao(float mundoX, float mundoY) {
                 ferramentaAtiva->finalizar_acao();
             }
 
+            for (Forma* f : desenhos) {
+                f->selecionada = false;
+            }
+
             b.realizar_acao();
             return true;
         }
