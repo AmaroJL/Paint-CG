@@ -63,66 +63,8 @@ public:
     }
 
     bool clicado(float mx, float my, float tol) override {
-        float mx_local = mx - novox;
-        float my_local = my - novoy;
-
-        // Vértices do retângulo de tolerância
-        float xmin = mx_local - tol;
-        float xmax = mx_local + tol;
-        float ymin = my_local - tol;
-        float ymax = my_local + tol;
-
-        // Recebem as posições dos pontos da reta (inicial e final) em relação ao retângulo de tolerância
-        int cod1 = calcularCodigoDeRegiao(x1, y1, xmin, xmax, ymin, ymax);
-        int cod2 = calcularCodigoDeRegiao(x2, y2, xmin, xmax, ymin, ymax);
-
-        bool aceito = false;
-        
-        // Criação de cópias das duas pontas da reta
-        float px1 = x1, py1 = y1, px2 = x2, py2 = y2;
-
-        while (true) {
-            if ((cod1 == 0) && (cod2 == 0)) {
-                // A reta esta totalmente dentro do retângulo de tolerância
-                aceito = true;
-                break;
-            } else if (cod1 & cod2) {
-                // A reta está totalmente fora do retângulo de tolerância
-                break;
-            } else {
-                // A reta cruza pelo menos uma borda do retângulo de tolerância
-                int codFora = (cod1 != 0) ? cod1 : cod2;
-                float x_interseccao = 0.0f, y_interseccao = 0.0f;
-
-                // Usa as fórmulas matemáticas da equação da reta para encontrar o ponto de intersecção
-                if (codFora & CIMA) {
-                    x_interseccao = px1 + (px2 - px1) * (ymax - py1) / (py2 - py1);
-                    y_interseccao = ymax;
-                } else if (codFora & BAIXO) {
-                    x_interseccao = px1 + (px2 - px1) * (ymin - py1) / (py2 - py1);
-                    y_interseccao = ymin;
-                } else if (codFora & DIREITA) {
-                    y_interseccao = py1 + (py2 - py1) * (xmax - px1) / (px2 - px1);
-                    x_interseccao = xmax;
-                } else if (codFora & ESQUERDA) {
-                    y_interseccao = py1 + (py2 - py1) * (xmin - px1) / (px2 - px1);
-                    x_interseccao = xmin;
-                }
-
-                // Substitui o ponto que estava fora pelo novo ponto de intersecção que acabámos de calcular
-                if (codFora == cod1) {
-                    px1 = x_interseccao;
-                    py1 = y_interseccao;
-                    cod1 = calcularCodigoDeRegiao(px1, py1, xmin, xmax, ymin, ymax);
-                } else {
-                    px2 = x_interseccao;
-                    py2 = y_interseccao;
-                    cod2 = calcularCodigoDeRegiao(px2, py2, xmin, xmax, ymin, ymax);
-                }
-            }
-        }
-        
-        return aceito;
+        // Seleção desativada para a ferramenta Reta a pedido do usuário
+        return false;
     }
 };
 
