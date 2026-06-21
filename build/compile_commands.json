@@ -1,0 +1,20 @@
+[
+{
+  "directory": "/home/amarojl/Paint-CG/build",
+  "command": "/usr/bin/g++   -g -std=gnu++11 -o CMakeFiles/Paint.dir/main.cpp.o -c /home/amarojl/Paint-CG/main.cpp",
+  "file": "/home/amarojl/Paint-CG/main.cpp",
+  "output": "CMakeFiles/Paint.dir/main.cpp.o"
+},
+{
+  "directory": "/home/amarojl/Paint-CG/build",
+  "command": "/usr/bin/g++   -g -std=gnu++11 -o CMakeFiles/Paint.dir/Botao.cpp.o -c /home/amarojl/Paint-CG/Botao.cpp",
+  "file": "/home/amarojl/Paint-CG/Botao.cpp",
+  "output": "CMakeFiles/Paint.dir/Botao.cpp.o"
+},
+{
+  "directory": "/home/amarojl/Paint-CG/build",
+  "command": "/usr/bin/g++   -g -std=gnu++11 -o CMakeFiles/Paint.dir/Controlador.cpp.o -c /home/amarojl/Paint-CG/Controlador.cpp",
+  "file": "/home/amarojl/Paint-CG/Controlador.cpp",
+  "output": "CMakeFiles/Paint.dir/Controlador.cpp.o"
+}
+]

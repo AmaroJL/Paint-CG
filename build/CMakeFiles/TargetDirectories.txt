@@ -1,0 +1,3 @@
+/home/amarojl/Paint-CG/build/CMakeFiles/Paint.dir
+/home/amarojl/Paint-CG/build/CMakeFiles/edit_cache.dir
+/home/amarojl/Paint-CG/build/CMakeFiles/rebuild_cache.dir
