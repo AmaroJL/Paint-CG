@@ -8,6 +8,7 @@
 #include "ferramentas/FerramentaPoligono.h"
 #include "ferramentas/FerramentaSelecao.h"
 #include "Controlador.h"
+#include <typeinfo>
 
 #include <cmath>
 #ifndef M_PI
@@ -103,14 +104,14 @@ void transformarComPontoFixo(Forma* f, float matrizBase[3][3]) {
     float cx, cy;
     f->obterCentro(cx, cy);
 
-    // matriz de translação - leva o centroide para a origem 
+    // leva o centroide pro centro 
     float tIda[3][3] = {
         {1.0f, 0.0f, -cx},
         {0.0f, 1.0f, -cy},
         {0.0f, 0.0f, 1.0f}
     };
 
-    // matriz de translação - coloca o centróide a posiçao original 
+    // volta pro lugar 
     float tVolta[3][3] = {
         {1.0f, 0.0f, cx},
         {0.0f, 1.0f, cy},
@@ -120,7 +121,7 @@ void transformarComPontoFixo(Forma* f, float matrizBase[3][3]) {
     float temp[3][3];
     float matrizComposta[3][3];
 
-    // concatenação depois da multiplicacao 
+    // junta as transformações 
     multiplicarMatrizes(matrizBase, tIda, temp);
     multiplicarMatrizes(tVolta, temp, matrizComposta);
 
@@ -147,7 +148,7 @@ void keyboard(unsigned char key, int x, int y) {
 
     if (selecionada != nullptr) {
         if (key == 'x' || key == 'X') {
-            // reflexao baseado no eixo x fixo (ref vertical - eixo y que muda)
+            // reflexao em x
             float mReflexaoX[3][3] = {
                 {1.0f,  0.0f, 0.0f},
                 {0.0f, -1.0f, 0.0f},
@@ -157,7 +158,7 @@ void keyboard(unsigned char key, int x, int y) {
             glutPostRedisplay();
         }
         else if (key == 'y' || key == 'Y') {
-            // reflexao baseado no eixo y fixo (ref vertical - eixo x que muda)
+            // reflexao em y
             float mReflexaoY[3][3] = {
                 {-1.0f, 0.0f, 0.0f},
                 {0.0f,  1.0f, 0.0f},
@@ -196,7 +197,7 @@ void keyboard(unsigned char key, int x, int y) {
                 {sin(angulo), cos(angulo),  0.0f},
                 {0.0f, 0.0f, 1.0f}
             };
-            if (dynamic_cast<PontoForma*>(selecionada) != nullptr) {
+            if (selecionada != nullptr && typeid(*selecionada) == typeid(PontoForma)) {
                 selecionada->aplicarTransformacao(mRotacao); 
             } else {
                 transformarComPontoFixo(selecionada, mRotacao); 
@@ -211,7 +212,7 @@ void keyboard(unsigned char key, int x, int y) {
                 {sin(angulo), cos(angulo),  0.0f},
                 {0.0f, 0.0f, 1.0f}
             };
-            if (dynamic_cast<PontoForma*>(selecionada) != nullptr) {
+            if (selecionada != nullptr && typeid(*selecionada) == typeid(PontoForma)) {
                 selecionada->aplicarTransformacao(mRotacao); // rotacao do ponto na origem (0,0)
             } else {
                 transformarComPontoFixo(selecionada, mRotacao); // rotacao normal
@@ -226,7 +227,7 @@ void keyboard(unsigned char key, int x, int y) {
                 {0.0f, 0.0f, 1.0f}
             };
 
-            if (dynamic_cast<PontoForma*>(selecionada) == nullptr) {
+            if (selecionada == nullptr || typeid(*selecionada) != typeid(PontoForma)) {
                 transformarComPontoFixo(selecionada, mEscala);
                 glutPostRedisplay();
             }
@@ -238,7 +239,7 @@ void keyboard(unsigned char key, int x, int y) {
                 {0.0f, 0.9f, 0.0f},
                 {0.0f, 0.0f, 1.0f}
             };
-            if (dynamic_cast<PontoForma*>(selecionada) == nullptr) {
+            if (selecionada == nullptr ||typeid(*selecionada) != typeid(PontoForma)) {
                 transformarComPontoFixo(selecionada, mEscala);
                 glutPostRedisplay();
             }
