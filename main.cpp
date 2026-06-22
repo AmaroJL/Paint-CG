@@ -192,9 +192,9 @@ void keyboard(unsigned char key, int x, int y) {
             // rotacao: gira 10 graus no sentido anti-horário
             float angulo = 10.0f * (M_PI / 180.0f);
             float mRotacao[3][3] = {
-                {static_cast<float>(cos(angulo)), static_cast<float>(-sin(angulo)), 0.0f},
-                {static_cast<float>(sin(angulo)), static_cast<float>(cos(angulo)),  0.0f},
-                {0.0f,                            0.0f,                             1.0f}
+                {cos(angulo), -sin(angulo), 0.0f},
+                {sin(angulo), cos(angulo),  0.0f},
+                {0.0f, 0.0f, 1.0f}
             };
             if (dynamic_cast<PontoForma*>(selecionada) != nullptr) {
                 selecionada->aplicarTransformacao(mRotacao); 
@@ -207,9 +207,9 @@ void keyboard(unsigned char key, int x, int y) {
             // rotacao: gira 10 graus no sentido horário
             float angulo = -10.0f * (M_PI / 180.0f); 
             float mRotacao[3][3] = {
-                {static_cast<float>(cos(angulo)), static_cast<float>(-sin(angulo)), 0.0f},
-                {static_cast<float>(sin(angulo)), static_cast<float>(cos(angulo)),  0.0f},
-                {0.0f,                            0.0f,                             1.0f}
+                {cos(angulo), -sin(angulo), 0.0f},
+                {sin(angulo), cos(angulo),  0.0f},
+                {0.0f, 0.0f, 1.0f}
             };
             if (dynamic_cast<PontoForma*>(selecionada) != nullptr) {
                 selecionada->aplicarTransformacao(mRotacao); // rotacao do ponto na origem (0,0)
@@ -218,8 +218,8 @@ void keyboard(unsigned char key, int x, int y) {
             }
             glutPostRedisplay();
         }
-        else if (key == '+' || key == '=') {
-            // escala: diminui o tamanho em 10%
+        else if (key == '+') {
+            // escala: aumenta 10%
             float mEscala[3][3] = {
                 {1.1f, 0.0f, 0.0f},
                 {0.0f, 1.1f, 0.0f},
@@ -231,8 +231,8 @@ void keyboard(unsigned char key, int x, int y) {
                 glutPostRedisplay();
             }
         }
-        else if (key == '-' || key == '_') {
-            // escala: diminui o tamanho em 10%
+        else if (key == '-') {
+            // escala: diminui 10%
             float mEscala[3][3] = {
                 {0.9f, 0.0f, 0.0f},
                 {0.0f, 0.9f, 0.0f},
