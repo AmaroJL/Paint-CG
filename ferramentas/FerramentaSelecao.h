@@ -25,7 +25,7 @@ public:
         for (int i = desenhosNaTela.size() - 1; i >= 0; i--) {
             if (desenhosNaTela[i]->clicado(mx, my, tolerancia)) {
                 desenhosNaTela[i]->selecionada = true;
-                formaArrastada = desenhosNaTela[i]; // Agarra na hora que seleciona
+                formaArrastada = desenhosNaTela[i]; 
                 ultimoX = mx;
                 ultimoY = my;
                 break; 
@@ -41,7 +41,6 @@ public:
             formaArrastada->novox += (mx - ultimoX);
             formaArrastada->novoy += (my - ultimoY);
             
-            // Atualiza a memória
             ultimoX = mx;
             ultimoY = my;
         }

@@ -52,7 +52,7 @@ public:
 
         glPointSize(4.0f);
         glBegin(GL_POINTS);
-            glVertex2f(x1, y1); // Marca o local do 1º clique
+            glVertex2f(x1, y1); 
             
             if (x1 != x2 || y1 != y2) {
                 glVertex2f(x2, y2); 

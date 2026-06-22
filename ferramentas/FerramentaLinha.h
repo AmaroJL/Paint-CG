@@ -19,8 +19,9 @@ public:
             return nullptr; 
         }
     }
-
-    void finalizar_acao() override { // Reinicia o desenho da linha, se ainda não finalizada
+    
+    // Reinicia o desenho da linha, se ainda não finalizada
+    void finalizar_acao() override { 
         linhaAtual = nullptr;
     }
 };

@@ -19,8 +19,9 @@ public:
         }
     }
     
+    // Solta o polígono atual para permitir iniciar o próximo
     void finalizar_acao() override {
-        poligonoAtual = nullptr; // Solta o polígono atual para permitir iniciar o próximo
+        poligonoAtual = nullptr; 
     }
 };
 

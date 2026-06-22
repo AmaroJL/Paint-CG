@@ -26,9 +26,9 @@ public:
         
         // Se estiver selecionado, usa cor laranja, senão usa verde
         if (selecionada) {
-            glColor3f(1.0f, 0.5f, 0.0f); // Laranja para seleção
+            glColor3f(1.0f, 0.5f, 0.0f);
         } else {
-            glColor3f(0.2f, 0.8f, 0.2f); // Verde (cor padrão)
+            glColor3f(0.2f, 0.8f, 0.2f); 
         }
         
         // Preenche o interior do polígono
