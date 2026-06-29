@@ -10,6 +10,16 @@ public:
     struct Vertice { float x, y; };
     std::vector<Vertice> vertices;
 
+private:
+    //orientacao de (p, q, r)
+    // 0-mesma linha, 1-horario , 2-antihorario
+    int orientacao(Vertice p, Vertice q, Vertice r) {
+        float val = (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);
+        if (val == 0.0f) return 0;
+        return (val > 0.0f) ? 1 : 2;
+    }
+
+public:
     PoligonoForma(float x, float y) {
         addVertice(x, y);
     }
@@ -123,6 +133,42 @@ public:
         }
         cx /= vertices.size();
         cy /= vertices.size();
+    }
+
+    //marcha de jarvis
+    void transformarEmConvexo() {
+        int n = vertices.size();
+        if (n < 3) return;
+
+        std::vector<Vertice> fecho;
+
+        //pega o vertice mais a esquerda
+        int l = 0;
+        for (int i = 1; i < n; i++) {
+            if (vertices[i].x < vertices[l].x) {
+                l = i;
+            }
+        }
+
+        //começa a marcha -> termina voltando pro ponto inicial
+        int p = l, q;
+        do {
+            // add o ponto atual ao fecho convexo
+            fecho.push_back(vertices[p]);
+
+            // pega o prox 'q' tal que (p, i, q) seja anti-horaria para todo 'i'
+            q = (p + 1) % n;
+            for (int i = 0; i < n; i++) {
+                if (orientacao(vertices[p], vertices[i], vertices[q]) == 2) {
+                    q = i;
+                }
+            }
+
+            p = q;
+        } while (p != l);
+
+        //substitui os verticies concavos pelo convexo
+        vertices = fecho;
     }
 };
 

@@ -258,6 +258,14 @@ void keyboard(unsigned char key, int x, int y) {
             }
             glutPostRedisplay();
         }
+        else if (key == 'c' || key == 'C') {
+            // transforma o poligono em convexo
+            if (selecionada != nullptr && typeid(*selecionada) == typeid(PoligonoForma)) {
+                PoligonoForma* pol = dynamic_cast<PoligonoForma*>(selecionada);
+                pol->transformarEmConvexo();
+                glutPostRedisplay();
+            }
+        }
     }
 }
 
